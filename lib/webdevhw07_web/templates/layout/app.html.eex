@@ -5,14 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Webdevhw07 · Phoenix Framework</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.scss") %>"/>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <div role="main" class="container">
-      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-        <p><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-      <% end %>
+    <div role="main" class="container-fluid">
+       <nav class="nav nav-justified">
+        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+            <p class="nav-link"><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+        <% end %>
+        <%= if @conn.assigns[:current_user] do %>
+          <a class="nav-link">
+            User: <%= @current_user.name %> |
+            <%= link("Logout", to: Routes.session_path(@conn, :delete),
+              method: :delete) %>
+          </a>
+        <% else %>
+            <%= form_for @conn, Routes.session_path(@conn, :create),
+            [class: "form-inline nav-link"], fn f -> %>
+              <%= text_input f, :name, class: "form-control" %>
+              <%= submit "Login", class: "btn btn-secondary" %>
+            <% end %>
+            <p class="nav-link"><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
+          
+        <% end %>
+      </nav>
 
       <%= if get_flash(@conn, :info) do %>
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -26,4 +43,3 @@
   </body>
 </html>
 
-git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow

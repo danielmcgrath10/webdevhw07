@@ -4,7 +4,7 @@ use Mix.Config
 config :webdevhw07, Webdevhw07.Repo,
   username: "activity",
   password: "UriprqwjEzv8y5Nd8P",
-  database: "activity_planner_<ev>",
+  database: "activity_planner_<env>",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
