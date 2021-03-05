@@ -6,9 +6,9 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :webdevhw07, Webdevhw07.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "webdevhw07_test#{System.get_env("MIX_TEST_PARTITION")}",
+  username: "activity",
+  password: "UriprqwjEzv8y5Nd8P",
+  database: "activity_planner_<env>",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

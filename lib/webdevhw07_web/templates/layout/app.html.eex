@@ -5,41 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Webdevhw07 · Phoenix Framework</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.scss") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-sm navbar-light bg-white">
-        <div class="col-4">
-          <a class="navbar-brand" href="#">Husky Shop</a>
-        </div>
-        <div class="col-8">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Products</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <div role="main" class="container">
+      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+        <p><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+      <% end %>
 
-      <div class="row">
-        <div class="col-12">
-          <%= if get_flash(@conn, :info) do %>
-            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-          <% end %>
-          <%= if get_flash(@conn, :error) do %>
-            <p class="alert alert-danger" role="alert">
-              <%= get_flash(@conn, :error) %>
-            </p>
-          <% end %>
-        </div>
-      </div>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
 
-      <%= render @view_module, @view_template, assigns %>
+      <%= @inner_content %>
     </div>
   </body>
 </html>
+
+git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
