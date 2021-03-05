@@ -3,7 +3,8 @@ defmodule Webdevhw07.Repo.Migrations.CreateActivities do
 
   def change do
     create table(:activities) do
-      add :body, :text, null: false
+      add :user_id, references(:users), null: false
+      add :body, :text, null: false 
 
       timestamps()
     end

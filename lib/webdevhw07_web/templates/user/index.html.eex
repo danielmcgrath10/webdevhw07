@@ -1,11 +1,15 @@
-<h1>Listing Users</h1>
+<div>
+  <h1>Listing Users</h1>
+  <span class="btn btn-light"><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+</div>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -15,14 +19,10 @@
       <td><%= user.name %></td>
       <td><%= user.email %></td>
 
-      <td>
-        <span><%= link "Show", to: Routes.user_path(@conn, :show, user) %></span>
-        <span><%= link "Edit", to: Routes.user_path(@conn, :edit, user) %></span>
-        <span><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
+      <td><span><%= link "Show", to: Routes.user_path(@conn, :show, user) %></span></td>
+      <td><span><%= link "Edit", to: Routes.user_path(@conn, :edit, user) %></span></td>
+      <td><span><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %></span></td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>

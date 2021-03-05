@@ -7,9 +7,8 @@
 <div class="row">
   <%= for activity <- @activities do %>
     <div class="col-sm-4 card">
-      <!--
-      <img class="card-img-top" src="" alt="">
-      -->
+      <div class="card-header">
+      </div>
       <div class="card-body">
         <p class="card-text"><%= activity.body %></p>
         <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>

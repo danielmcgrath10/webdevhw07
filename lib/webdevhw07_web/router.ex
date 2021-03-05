@@ -18,8 +18,8 @@ defmodule Webdevhw07Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/activities", ActivityController
     resources "/users", UserController
+    resources "/activities", ActivityController
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
   end

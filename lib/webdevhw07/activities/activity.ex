@@ -5,6 +5,8 @@ defmodule Webdevhw07.Activities.Activity do
   schema "activities" do
     field :body, :string
 
+    belongs_to :user, Webdevhw07.Users.User
+
     timestamps()
   end
 
