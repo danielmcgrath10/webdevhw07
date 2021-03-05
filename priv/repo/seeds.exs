@@ -9,3 +9,13 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Webdevhw07.Repo
+alias Webdevhw07.Users.User
+alias Webdevhw07.Activities.Activity
+
+alice = Repo.insert!(%User{name: "alice"})
+bob = Repo.insert!(%User{name: "bob"})
+
+Repo.insert!(%Post{user_id: alice.id, body: "This is a sick message"})
+Repo.insert!(%Post{user_id: bob.id, body: "This is also a sick message"})
