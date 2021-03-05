@@ -1,10 +1,12 @@
-<p>
-  <span><%= link "Edit", to: Routes.activity_path(@conn, :edit, @post) %></span>
-  <span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
-</p>
+<h1><%= @activity.name %></h1>
 
-<h1>Show Post #<%= @post.id %></h1>
+<h2>Date: <%= @activity.date%></h2>
 
 <div>
-  <%= @post.body %>
+  <%= @activity.body %>
 </div>
+
+<p>
+  <span><%= link "Edit", to: Routes.activity_path(@conn, :edit, @activity) %></span>
+  <span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
+</p>

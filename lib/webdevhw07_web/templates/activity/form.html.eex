@@ -6,6 +6,14 @@
   <% end %>
 
 <div class="form-group">
+  <%= label f, :name %>
+  <%= text_input f, :name, class: "form-control"%>
+  <%= error_tag f, :name %>
+
+  <%= label f, :date %>
+  <%= date_input f, :date, class: "form-control"%>
+  <%= error_tag f, :date %>
+
   <%= label f, :body %>
   <%= textarea f, :body, class: "form-control"%>
   <%= error_tag f, :body %>

@@ -5,6 +5,7 @@ defmodule Webdevhw07Web.PageController do
 
   def index(conn, _params) do
     activities = Activities.list_activities()
+    IO.inspect activities
     render(conn, "index.html", activities: activities)
   end
 end

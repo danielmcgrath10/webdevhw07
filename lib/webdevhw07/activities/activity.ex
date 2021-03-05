@@ -3,6 +3,8 @@ defmodule Webdevhw07.Activities.Activity do
   import Ecto.Changeset
 
   schema "activities" do
+    field :name, :string, null: false
+    field :date, :string, null: false
     field :body, :string
 
     belongs_to :user, Webdevhw07.Users.User
@@ -13,7 +15,7 @@ defmodule Webdevhw07.Activities.Activity do
   @doc false
   def changeset(activity, attrs) do
     activity
-    |> cast(attrs, [:body])
-    |> validate_required([:body])
+    |> cast(attrs, [:name, :date, :body, :user_id])
+    |> validate_required([:name, :date, :body, :user_id])
   end
 end

@@ -15,6 +15,8 @@ defmodule Webdevhw07Web.ActivityController do
   end
 
   def create(conn, %{"activity" => activity_params}) do
+    activity_params = activity_params
+    |> Map.put("user_id", conn.assign[:current_user].id)
     case Activities.create_activity(activity_params) do
       {:ok, activity} ->
         conn

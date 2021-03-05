@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.activity_path(@conn, :update, @activity)) %>
 
-<span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
+<%= link "Back", to: Routes.activity_path(@conn, :index), class: "btn btn-outline-danger" %>

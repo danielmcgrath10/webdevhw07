@@ -19,6 +19,7 @@ defmodule Webdevhw07.Activities do
   """
   def list_activities do
     Repo.all(Activity)
+    |> Repo.preload(:user)
   end
 
   @doc """
