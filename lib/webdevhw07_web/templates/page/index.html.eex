@@ -13,7 +13,7 @@
       </div>
       <div class="card-body">
         <h4>Date: <%= activity.date%></h4>
-        <p>Posted by <%=activity.user.name%></p>
+        <%# <p>Posted by <%=activity.user.name%>
         <p class="card-text"><%= activity.body %></p>
         <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>
       </div>

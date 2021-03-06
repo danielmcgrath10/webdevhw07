@@ -7,7 +7,7 @@ defmodule Webdevhw07.Activities.Activity do
     field :date, :string, null: false
     field :body, :string
 
-    belongs_to :user, Webdevhw07.Users.User
+    # belongs_to :user, Webdevhw07.Users.User
 
     timestamps()
   end
@@ -15,7 +15,7 @@ defmodule Webdevhw07.Activities.Activity do
   @doc false
   def changeset(activity, attrs) do
     activity
-    |> cast(attrs, [:name, :date, :body, :user_id])
-    |> validate_required([:name, :date, :body, :user_id])
+    |> cast(attrs, [:name, :date, :body])
+    |> validate_required([:name, :date, :body])
   end
 end

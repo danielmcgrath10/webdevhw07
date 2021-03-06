@@ -15,7 +15,13 @@ defmodule Webdevhw07Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Users.create_user(user_params) do
+    user = Users.get_user_by_email(user_params["email"])
+    if user do
+      conn
+      |> put_flash(:error, "This Email Already Exists for a User")
+      |> redirect(to: Routes.user_path(conn, :index))
+    end
+    case Users.create_user(user_params) do 
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
