@@ -4,3 +4,32 @@
 .invalid-feedback {
     display: block;
   }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 10px;
+  }
+
+  a {
+    margin: 10px;
+  }
+
+  .nav-item {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 15pt;
+  }
+
+  .title {
+    text-decoration: none;
+    color: black;
+  }
+
+  .title:hover {
+    text-decoration: none;
+    color: black;
+  }

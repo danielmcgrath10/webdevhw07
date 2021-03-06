@@ -10,25 +10,29 @@
   </head>
   <body>
     <div role="main" class="container-fluid">
-       <nav class="nav nav-justified">
-        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-            <p class="nav-link"><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-        <% end %>
-        <%= if @conn.assigns[:current_user] do %>
-          <a class="nav-link">
-            User: <%= @current_user.name %> |
-            <%= link("Logout", to: Routes.session_path(@conn, :delete),
-              method: :delete) %>
-          </a>
-        <% else %>
-            <%= form_for @conn, Routes.session_path(@conn, :create),
-            [class: "form-inline nav-link"], fn f -> %>
-              <%= text_input f, :name, class: "form-control" %>
-              <%= submit "Login", class: "btn btn-secondary" %>
-            <% end %>
-            <p class="nav-link"><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
-          
-        <% end %>
+       <nav class="nav ">
+       <span class="nav-item">
+          <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %>
+          <% end %>
+        </span>
+        <span>
+          <h2><a class="title" href="/">Activity Feed</a></h2>
+        </span>
+        <span class="nav-item">
+          <%= if @conn.assigns[:current_user] do %>
+              User: <%= @current_user.name %> | <%= link("Logout", to: Routes.session_path(@conn, :delete),
+                method: :delete) %>
+          <% else %>
+              <%= form_for @conn, Routes.session_path(@conn, :create),
+              [class: "form-inline"], fn f -> %>
+                <%= email_input f, :email, class: "form-control" %>
+                <%= submit "Login", class: "btn btn-secondary" %>
+              <% end %>
+              <%= link "Register", to: Routes.user_path(@conn, :new) %>
+            
+          <% end %>
+        </span>
       </nav>
 
       <%= if get_flash(@conn, :info) do %>

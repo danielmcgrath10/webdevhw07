@@ -1,13 +1,14 @@
 defmodule Webdevhw07Web.SessionController do 
     use Webdevhw07Web, :controller
 
-    def create(conn, %{"name" => name}) do
-        user = Webdevhw07.Users.get_user_by_name(name)
+    def create(conn, %{"email" => email}) do
+        IO.inspect email
+        user = Webdevhw07.Users.get_user_by_email(email)
         if user do
             conn
             |> put_session(:user_id, user.id)
             |> put_flash(:info, "Welcome back #{user.name}")
-            |> redirect(to: Routes.pages_path(conn, :index))
+            |> redirect(to: Routes.page_path(conn, :index))
         else
             conn
             |> put_flash(:error, "Login Failed")
