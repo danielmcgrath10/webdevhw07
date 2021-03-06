@@ -6,11 +6,12 @@ export MIX_ENV=prod
 # on is something like 1025-32767
 export PORT=4793
 export SECRET_KEY_BASE=insecure
+export DATABASE_URL=ecto://activities:bad@localhost/activity_planner_prod
 
 mix deps.get --only prod
 mix compile
 
-CFGD=$(readlink -f ~/.config/bulls)
+CFGD=$(readlink -f ~/.config/webdevhw07)
 
 if [ ! -d "$CFGD" ]; then
     mkdir -p "$CFGD"
@@ -20,8 +21,17 @@ if [ ! -e "$CFGD/base" ]; then
     mix phx.gen.secret > "$CFGD/base"
 fi
 
+if [ ! -e "$CFGD/db_pass" ]; then
+    pwgen 12 1 > "$CFGD/db_pass"
+fi
+
 SECRET_KEY_BASE=$(cat "$CFGD/base")
 export SECRET_KEY_BASE
+
+DB_PASS=$(cat "$CFGD/db_pass")
+export DATABASE_URL=ecto://activities:$DB_PASS@localhost/activity_planner_prod
+
+mix ecto.migrate
 
 npm install --prefix ./assets
 npm run deploy --prefix ./assets
