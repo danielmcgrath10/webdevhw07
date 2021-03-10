@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col">
     <h1>Activity Feed</h1>
-    <%= link "New Activity", to: Routes.activity_path(@conn, :new), class: "btn btn-primary" %>
+    <%= if have_current_user?(@conn) do%>
+      <%= link "New Activity", to: Routes.activity_path(@conn, :new), class: "btn btn-primary" %>
+    <% end%>
   </div>
 </div>
 
@@ -13,7 +15,7 @@
       </div>
       <div class="card-body">
         <h4>Date: <%= activity.date%></h4>
-        <%# <p>Posted by <%=activity.user.name%>
+        <p>Posted by <%=activity.user.name%></p>
         <p class="card-text"><%= activity.body %></p>
         <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>
       </div>

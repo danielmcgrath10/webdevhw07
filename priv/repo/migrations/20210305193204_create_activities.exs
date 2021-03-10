@@ -6,7 +6,7 @@ defmodule Webdevhw07.Repo.Migrations.CreateActivities do
       add :name, :text, null: false
       add :date, :text, null: false
       add :body, :text, null: false 
-      # add :user_id, references(:users), null: false
+      add :user_id, references(:users), null: false
 
       timestamps()
     end
