@@ -20,6 +20,7 @@ defmodule Webdevhw07.Activities do
   def list_activities do
     Repo.all(Activity)
     |> Repo.preload(:user)
+    |> Repo.preload(:comments)
   end
 
   @doc """
@@ -101,5 +102,9 @@ defmodule Webdevhw07.Activities do
   """
   def change_activity(%Activity{} = activity, attrs \\ %{}) do
     Activity.changeset(activity, attrs)
+  end
+
+  def load_comments(%Activity{} = activity) do
+    Repo.preload(activity, [comments: :user])
   end
 end

@@ -54,7 +54,13 @@ defmodule Webdevhw07Web.ActivityController do
 
   def show(conn, %{"id" => _id}) do
     activity = conn.assigns[:activity]
-    render(conn, "show.html", activity: activity)
+    |> Activities.load_comments()
+    comm = %Webdevhw07.Comments.Comment{
+      activity_id: activity.id,
+      user_id: current_user_id(conn)
+    }
+    new_comment = Webdevhw07.Comments.change_comment(comm)
+    render(conn, "show.html", activity: activity, new_comment: new_comment)
   end
 
   def edit(conn, %{"id" => _id}) do

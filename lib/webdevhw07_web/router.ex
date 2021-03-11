@@ -20,6 +20,7 @@ defmodule Webdevhw07Web.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/activities", ActivityController
+    resources "/comments", CommentController
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
   end

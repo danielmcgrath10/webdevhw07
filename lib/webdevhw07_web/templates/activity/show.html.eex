@@ -1,3 +1,11 @@
+<p>
+  <%= if current_user_id?(@conn, @activity.user_id) do%>
+    <span><%= link "Edit", to: Routes.activity_path(@conn, :edit, @activity) %></span>
+  <% end%>
+  <span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
+</p>
+
+
 <h1><%= @activity.name %></h1>
 
 <h2>Date: <%= @activity.date%></h2>
@@ -6,9 +14,30 @@
   <%= @activity.body %>
 </div>
 
-<p>
-  <%= if current_user_id?(@conn, @activity.user_id) do%>
-    <span><%= link "Edit", to: Routes.activity_path(@conn, :edit, @activity) %></span>
-  <% end%>
-  <span><%= link "Back", to: Routes.activity_path(@conn, :index) %></span>
-</p>
+<h2>Add Comment</h2>
+
+<%= if have_current_user?(@conn) do %>
+  <%# <%= render(
+    Webdevhw07.CommentView,
+    "form.html",
+    changeset: @new_comment,
+    action: Routes.comment_path(@conn, :create)
+  ) %>
+  <%= render(
+    Webdevhw07Web.CommentView,
+    "form.html",
+    changeset: @new_comment,
+    action: Routes.comment_path(@conn, :create)
+  )%>
+<% end %>
+
+<h2>Comments</h2>
+
+<%= for comm <- @activity.comments do %>
+  <div class="card">
+    <div class="card-body">
+      <p>Posted by <%= comm.user.name %></p>
+      <p class="card-text"><%= comm.body %></p>
+    </div>
+  </div>
+<% end %>

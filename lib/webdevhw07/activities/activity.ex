@@ -9,6 +9,8 @@ defmodule Webdevhw07.Activities.Activity do
 
     belongs_to :user, Webdevhw07.Users.User
 
+    has_many :comments, Webdevhw07.Comments.Comment
+
     timestamps()
   end
 
