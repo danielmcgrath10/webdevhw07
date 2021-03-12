@@ -18,11 +18,11 @@ events.danny-mcgrath.com
 
 4. Is your app functionality complete? If not, what's missing?
 
-
+I believe so
 
 5. Is your app properly deployed? If not, what went wrong?
 
-
+I believe so
 
 
 

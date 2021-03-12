@@ -32,6 +32,7 @@ DB_PASS=$(cat "$CFGD/db_pass")
 export DATABASE_URL=ecto://activities:$DB_PASS@localhost/activity_planner_prod
 
 mix ecto.migrate
+sudo mix ecto.reset
 
 npm install --prefix ./assets
 npm run deploy --prefix ./assets
