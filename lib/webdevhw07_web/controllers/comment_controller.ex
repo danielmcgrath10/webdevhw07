@@ -1,3 +1,5 @@
+# This code is heavily influenced by the lecture slides for Photo_blog
+# if not copy and pasted snippets
 defmodule Webdevhw07Web.CommentController do
   use Webdevhw07Web, :controller
 
@@ -5,7 +7,6 @@ defmodule Webdevhw07Web.CommentController do
   alias Webdevhw07.Comments.Comment
   alias Webdevhw07Web.Plugs.RequireUser
   plug RequireUser when action in [:new, :edit, :create, :update, :delete, :show]
-
 
   def index(conn, _params) do
     comments = Comments.list_comments()
@@ -18,8 +19,10 @@ defmodule Webdevhw07Web.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    comment_params = comment_params
-    |> Map.put("user_id", current_user_id(conn))
+    comment_params =
+      comment_params
+      |> Map.put("user_id", current_user_id(conn))
+
     case Comments.create_comment(comment_params) do
       {:ok, comment} ->
         conn

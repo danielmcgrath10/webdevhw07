@@ -1,3 +1,4 @@
+# This code is heavily influenced by the lecture slides for Photo_blog
 defmodule Webdevhw07Web.InviteController do
   use Webdevhw07Web, :controller
 
@@ -6,7 +7,6 @@ defmodule Webdevhw07Web.InviteController do
   alias Webdevhw07.Activities
   alias Webdevhw07Web.Plugs.RequireUser
   plug RequireUser when action in [:new, :edit, :create, :update, :delete, :show]
-
 
   def index(conn, _params) do
     invites = Invites.list_invites()
@@ -19,9 +19,14 @@ defmodule Webdevhw07Web.InviteController do
   end
 
   def create(conn, %{"invite" => invite_params}) do
-    invite_params = invite_params
-    |> Map.put("user_id", current_user_id(conn))
-    |> Map.replace!("url", "http://events.danny-mcgrath.com/activities/#{invite_params["activity_id"]}")
+    invite_params =
+      invite_params
+      |> Map.put("user_id", current_user_id(conn))
+      |> Map.replace!(
+        "url",
+        "http://events.danny-mcgrath.com/activities/#{invite_params["activity_id"]}"
+      )
+
     case Invites.create_invite(invite_params) do
       {:ok, invite} ->
         conn
@@ -60,9 +65,11 @@ defmodule Webdevhw07Web.InviteController do
 
   def update_accept(conn, %{"activity_id" => id, "accept" => accept}) do
     user = conn.assigns[:current_user]
-    invite = Activities.get_activity!(id).invites
-    |> Enum.find(fn invite -> invite.user_email == user.email end)
-    |> Map.replace!(:accept, accept)
+
+    invite =
+      Activities.get_activity!(id).invites
+      |> Enum.find(fn invite -> invite.user_email == user.email end)
+      |> Map.replace!(:accept, accept)
 
     invite_params = %{
       accept: invite.accept,

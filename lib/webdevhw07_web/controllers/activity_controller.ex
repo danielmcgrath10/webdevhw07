@@ -1,3 +1,4 @@
+# This code is heavily influenced by the lecture slides for Photo_blog
 defmodule Webdevhw07Web.ActivityController do
   use Webdevhw07Web, :controller
 
@@ -28,7 +29,7 @@ defmodule Webdevhw07Web.ActivityController do
   end
 
   def fetch_activity(conn, _args) do
-    id=conn.params["id"]
+    id = conn.params["id"]
     activity = Activities.get_activity!(id)
     assign(conn, :activity, activity)
   end
@@ -39,8 +40,10 @@ defmodule Webdevhw07Web.ActivityController do
   end
 
   def create(conn, %{"activity" => activity_params}) do
-    activity_params = activity_params
-    |> Map.put("user_id", conn.assigns[:current_user].id)
+    activity_params =
+      activity_params
+      |> Map.put("user_id", conn.assigns[:current_user].id)
+
     case Activities.create_activity(activity_params) do
       {:ok, activity} ->
         conn
@@ -53,20 +56,24 @@ defmodule Webdevhw07Web.ActivityController do
   end
 
   def show(conn, %{"id" => _id}) do
-    activity = conn.assigns[:activity]
-    |> Activities.load_comments()
-    |> Activities.load_invites()
+    activity =
+      conn.assigns[:activity]
+      |> Activities.load_comments()
+      |> Activities.load_invites()
 
     inv = %Webdevhw07.Invites.Invite{
       activity_id: activity.id,
       user_id: creator_id(conn)
     }
+
     comm = %Webdevhw07.Comments.Comment{
       activity_id: activity.id,
       user_id: current_user_id(conn)
     }
+
     new_comment = Webdevhw07.Comments.change_comment(comm)
     new_invite = Webdevhw07.Invites.change_invite(inv)
+
     render(conn, "show.html", activity: activity, new_comment: new_comment, new_invite: new_invite)
   end
 

@@ -1,3 +1,5 @@
+# This code is heavily influenced by the lecture slides for Photo_blog
+# if not copy and pasted snippets
 defmodule Webdevhw07Web.Router do
   use Webdevhw07Web, :router
 
@@ -24,8 +26,7 @@ defmodule Webdevhw07Web.Router do
     resources "/activities", ActivityController
     resources "/comments", CommentController
     resources "/invites", InviteController
-    resources "/sessions", SessionController,
-      only: [:create, :delete], singleton: true
+    resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 
   # Other scopes may use custom stacks.

@@ -1,3 +1,5 @@
+# This code is heavily influenced by the lecture slides for Photo_blog
+# if not copy and pasted snippets
 defmodule Webdevhw07Web.UserController do
   use Webdevhw07Web, :controller
 
@@ -17,16 +19,22 @@ defmodule Webdevhw07Web.UserController do
 
   def create(conn, %{"user" => user_params}) do
     user = Users.get_user_by_email(user_params["email"])
+
     if user do
       conn
       |> put_flash(:error, "This Email Already Exists for a User")
       |> redirect(to: Routes.user_path(conn, :index))
     end
+
     up = user_params["profile_photo"]
+
     if up do
       {:ok, hash} = Photos.save_photo(up.filename, up.path)
-      user_params = user_params
-      |> Map.put("profile_photo", hash)
+
+      user_params =
+        user_params
+        |> Map.put("profile_photo", hash)
+
       case Users.create_user(user_params) do
         {:ok, user} ->
           conn
@@ -66,16 +74,18 @@ defmodule Webdevhw07Web.UserController do
     up = user_params["profile_photo"]
     old_photo = user.profile_photo
 
-    user_params = if up do
-      # FIXME: Remove old image
-      if old_photo do
-        Photos.delete_photo(old_photo)
+    user_params =
+      if up do
+        # FIXME: Remove old image
+        if old_photo do
+          Photos.delete_photo(old_photo)
+        end
+
+        {:ok, hash} = Photos.save_photo(up.filename, up.path)
+        Map.put(user_params, "profile_photo", hash)
+      else
+        user_params
       end
-      {:ok, hash} = Photos.save_photo(up.filename, up.path)
-      Map.put(user_params, "profile_photo", hash)
-    else
-      user_params
-    end
 
     case Users.update_user(user, user_params) do
       {:ok, user} ->
@@ -95,6 +105,7 @@ defmodule Webdevhw07Web.UserController do
     if up do
       Photos.delete_photo(up)
     end
+
     {:ok, _user} = Users.delete_user(user)
 
     conn
@@ -106,6 +117,7 @@ defmodule Webdevhw07Web.UserController do
   def profile_photo(conn, %{"id" => id}) do
     user = Users.get_user!(id)
     {:ok, _name, data} = Photos.load_photo(user.profile_photo)
+
     conn
     |> put_resp_content_type("image/jpeg")
     |> send_resp(200, data)
