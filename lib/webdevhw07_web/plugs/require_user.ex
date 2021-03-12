@@ -3,10 +3,11 @@ defmodule Webdevhw07Web.Plugs.RequireUser do
 
     def init(args), do: args
 
-    def call(conn, _args) do 
+    def call(conn, _args) do
+        IO.inspect conn
         if conn.assigns[:current_user] do
             conn
-        else 
+        else
             conn
             |> put_flash(:error, "You must be logged in to do that")
             |> redirect(to: Routes.page_path(conn, :index))

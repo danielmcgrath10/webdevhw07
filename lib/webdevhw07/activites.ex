@@ -21,6 +21,7 @@ defmodule Webdevhw07.Activities do
     Repo.all(Activity)
     |> Repo.preload(:user)
     |> Repo.preload(:comments)
+    |> Repo.preload(:invites)
   end
 
   @doc """

@@ -1,3 +1,4 @@
+<%= if current_user_id?(@conn, @activity.user_id) || in_invites?(@conn, @activity.invites) do %>
 <p>
   <%= if current_user_id?(@conn, @activity.user_id) do%>
     <span><%= link "Edit", to: Routes.activity_path(@conn, :edit, @activity) %></span>
@@ -96,3 +97,12 @@
     </div>
   </div>
 </div>
+<%else %>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="align-text-center">AH AH AH, You definitely don't have access to this.</h1>
+      </div>
+    </div>
+  </div>
+<%end %>

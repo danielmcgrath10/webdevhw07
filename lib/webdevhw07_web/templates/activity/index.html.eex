@@ -23,7 +23,9 @@
       <td><%= activity.date %></td>
       <td><%= activity.body %></td>
 
-      <td><span><%= link "Show", to: Routes.activity_path(@conn, :show, activity) %></span></td>
+      <%= if in_invites?(@conn, activity.invites) do %>
+        <td><span><%= link "Show", to: Routes.activity_path(@conn, :show, activity) %></span></td>
+      <%end %>
       <%= if current_user_id?(@conn, activity.user_id) do%>
         <td><span><%= link "Edit", to: Routes.activity_path(@conn, :edit, activity) %></span></td>
         <td><span><%= link "Delete", to: Routes.activity_path(@conn, :delete, activity), method: :delete, data: [confirm: "Are you sure?"] %></span></td>

@@ -4,6 +4,9 @@ defmodule Webdevhw07Web.InviteController do
   alias Webdevhw07.Invites
   alias Webdevhw07.Invites.Invite
   alias Webdevhw07.Activities
+  alias Webdevhw07Web.Plugs.RequireUser
+  plug RequireUser when action in [:new, :edit, :create, :update, :delete, :show]
+
 
   def index(conn, _params) do
     invites = Invites.list_invites()
@@ -16,7 +19,6 @@ defmodule Webdevhw07Web.InviteController do
   end
 
   def create(conn, %{"invite" => invite_params}) do
-    IO.inspect invite_params
     invite_params = invite_params
     |> Map.put("user_id", current_user_id(conn))
     case Invites.create_invite(invite_params) do

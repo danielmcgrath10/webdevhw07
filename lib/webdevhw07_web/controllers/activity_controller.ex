@@ -4,7 +4,7 @@ defmodule Webdevhw07Web.ActivityController do
   alias Webdevhw07.Activities
   alias Webdevhw07.Activities.Activity
   alias Webdevhw07Web.Plugs.RequireUser
-  plug RequireUser when action in [:new, :edit, :create, :update, :delete]
+  plug RequireUser when action in [:new, :edit, :create, :update, :delete, :show]
   plug :fetch_activity when action in [:show, :edit, :update, :delete]
   plug :require_owner when action in [:edit, :update, :delete]
 

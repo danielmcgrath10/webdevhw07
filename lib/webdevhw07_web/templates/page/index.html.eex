@@ -12,14 +12,17 @@
     <%= for activity <- @activities do%>
       <div class="card">
         <div class="card-header">
-          <h3><%= activity.name%></h3>
+          <%= if current_user_id?(@conn, activity.user_id) || in_invites?(@conn, activity.invites) do%>
+            <h3><%= link "#{activity.name}", to: Routes.activity_path(@conn, :show, activity) %></h3>
+          <%else %>
+            <h3><%= activity.name%></h3>
+          <%end %>
         </div>
         <div class="card-body">
           <h4>Date: <%= activity.date%></h4>
           <p>Posted by <%=activity.user.name%></p>
           <p>Comments: <%= Enum.count(activity.comments) %>
           <p class="card-text"><%= activity.body %></p>
-          <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>
         </div>
       </div>
     <% end %>

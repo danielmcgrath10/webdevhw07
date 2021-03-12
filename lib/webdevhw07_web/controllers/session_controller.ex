@@ -1,8 +1,7 @@
-defmodule Webdevhw07Web.SessionController do 
+defmodule Webdevhw07Web.SessionController do
     use Webdevhw07Web, :controller
 
     def create(conn, %{"email" => email}) do
-        IO.inspect email
         user = Webdevhw07.Users.get_user_by_email(email)
         if user do
             conn
@@ -16,7 +15,7 @@ defmodule Webdevhw07Web.SessionController do
         end
     end
 
-    def delete(conn, _params) do 
+    def delete(conn, _params) do
         conn
         |> delete_session(:user_id)
         |> put_flash(:info, "Logged Out")

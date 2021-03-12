@@ -3,6 +3,9 @@ defmodule Webdevhw07Web.CommentController do
 
   alias Webdevhw07.Comments
   alias Webdevhw07.Comments.Comment
+  alias Webdevhw07Web.Plugs.RequireUser
+  plug RequireUser when action in [:new, :edit, :create, :update, :delete, :show]
+
 
   def index(conn, _params) do
     comments = Comments.list_comments()
@@ -54,7 +57,6 @@ defmodule Webdevhw07Web.CommentController do
   end
 
   def delete(conn, %{"id" => id}) do
-    IO.inspect id
     comment = Comments.get_comment!(id)
     activity_id = comment.activity_id
     {:ok, _comment} = Comments.delete_comment(comment)

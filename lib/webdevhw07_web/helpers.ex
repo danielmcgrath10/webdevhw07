@@ -21,11 +21,15 @@ defmodule Webdevhw07Web.Helpers do
 
     def in_invites?(conn, invites) do
         user = conn.assigns[:current_user]
-        match = Enum.find(invites, fn invite ->
-            invite.user_email == user.email
-        end)
-        if match do
-            true
+        if user do
+            match = Enum.find(invites, fn invite ->
+                invite.user_email == user.email
+            end)
+            if match do
+                true
+            else
+                false
+            end
         else
             false
         end

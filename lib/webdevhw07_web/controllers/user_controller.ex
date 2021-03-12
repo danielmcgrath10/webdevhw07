@@ -93,7 +93,6 @@ defmodule Webdevhw07Web.UserController do
   # New controller function.
   def profile_photo(conn, %{"id" => id}) do
     user = Users.get_user!(id)
-    IO.inspect user
     {:ok, _name, data} = Photos.load_photo(user.profile_photo)
     conn
     |> put_resp_content_type("image/jpeg")

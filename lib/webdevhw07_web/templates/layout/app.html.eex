@@ -17,7 +17,7 @@
           <% end %>
         </span>
         <span>
-          <h2><a class="title" href="/">Activity Feed</a></h2>
+          <h2><a class="title" href="/">Super Awesome Activity App Thing</a></h2>
         </span>
         <span class="nav-item">
           <%= if @conn.assigns[:current_user] do %>
@@ -30,7 +30,7 @@
                 <%= submit "Login", class: "btn btn-secondary" %>
               <% end %>
               <%= link "Register", to: Routes.user_path(@conn, :new) %>
-            
+
           <% end %>
         </span>
       </nav>
@@ -46,4 +46,3 @@
     </div>
   </body>
 </html>
-

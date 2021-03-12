@@ -1,5 +1,17 @@
-<h1>Edit Activity</h1>
+<%= if in_invites?(@conn, @activity.invites) do %>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.activity_path(@conn, :update, @activity)) %>
+    <h1>Edit Activity</h1>
 
-<%= link "Back", to: Routes.activity_path(@conn, :index), class: "btn btn-outline-danger" %>
+    <%= render "form.html", Map.put(assigns, :action, Routes.activity_path(@conn, :update, @activity)) %>
+
+    <%= link "Back", to: Routes.activity_path(@conn, :index), class: "btn btn-outline-danger" %>
+
+<%else %>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="align-text-center">Ah Ah Ah You Don't Have Access</h1>
+            </div>
+        </div>
+    </div>
+<%end %>
