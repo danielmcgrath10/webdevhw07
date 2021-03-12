@@ -7,6 +7,7 @@ defmodule Webdevhw07.Users.User do
     field :name, :string, null: false
     has_many :posts, Webdevhw07.Activities.Activity
     has_many :comments, Webdevhw07.Comments.Comment
+    has_many :invites, Webdevhw07.Invites.Invite
 
     timestamps()
   end

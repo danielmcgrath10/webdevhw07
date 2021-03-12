@@ -21,6 +21,7 @@ defmodule Webdevhw07Web.Router do
     resources "/users", UserController
     resources "/activities", ActivityController
     resources "/comments", CommentController
+    resources "/invites", InviteController
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
   end

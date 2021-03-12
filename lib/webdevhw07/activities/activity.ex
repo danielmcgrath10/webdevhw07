@@ -10,6 +10,7 @@ defmodule Webdevhw07.Activities.Activity do
     belongs_to :user, Webdevhw07.Users.User
 
     has_many :comments, Webdevhw07.Comments.Comment
+    has_many :invites, Webdevhw07.Invites.Invite
 
     timestamps()
   end

@@ -4,7 +4,7 @@ defmodule Webdevhw07Web.ActivityController do
   alias Webdevhw07.Activities
   alias Webdevhw07.Activities.Activity
   alias Webdevhw07Web.Plugs.RequireUser
-  plug Plugs.RequireUser when action in [:new, :edit, :create, :update, :delete]
+  plug RequireUser when action in [:new, :edit, :create, :update, :delete]
   plug :fetch_activity when action in [:show, :edit, :update, :delete]
   plug :require_owner when action in [:edit, :update, :delete]
 
@@ -55,12 +55,19 @@ defmodule Webdevhw07Web.ActivityController do
   def show(conn, %{"id" => _id}) do
     activity = conn.assigns[:activity]
     |> Activities.load_comments()
+    |> Activities.load_invites()
+
+    inv = %Webdevhw07.Invites.Invite{
+      activity_id: activity.id,
+      user_id: creator_id(conn)
+    }
     comm = %Webdevhw07.Comments.Comment{
       activity_id: activity.id,
       user_id: current_user_id(conn)
     }
     new_comment = Webdevhw07.Comments.change_comment(comm)
-    render(conn, "show.html", activity: activity, new_comment: new_comment)
+    new_invite = Webdevhw07.Invites.change_invite(inv)
+    render(conn, "show.html", activity: activity, new_comment: new_comment, new_invite: new_invite)
   end
 
   def edit(conn, %{"id" => _id}) do

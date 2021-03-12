@@ -12,4 +12,10 @@ defmodule Webdevhw07Web.Helpers do
         user = conn.assigns[:current_user]
         user && user.id
     end
+
+    def creator_id(conn) do
+        user = conn.assigns[:current_user]
+        activity = conn.assigns[:activity]
+        user && activity.user_id
+    end
 end

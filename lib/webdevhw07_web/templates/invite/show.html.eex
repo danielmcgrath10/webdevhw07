@@ -1,0 +1,23 @@
+<h1>Show Invite</h1>
+
+<ul>
+
+  <li>
+    <strong>User email:</strong>
+    <%= @invite.user_email %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @invite.url %>
+  </li>
+
+  <li>
+    <strong>Accept:</strong>
+    <%= @invite.accept %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.invite_path(@conn, :edit, @invite) %></span>
+<span><%= link "Back", to: Routes.invite_path(@conn, :index) %></span>

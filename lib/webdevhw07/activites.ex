@@ -107,4 +107,8 @@ defmodule Webdevhw07.Activities do
   def load_comments(%Activity{} = activity) do
     Repo.preload(activity, [comments: :user])
   end
+
+  def load_invites(%Activity{} = activity) do
+    Repo.preload(activity, [invites: :activity])
+  end
 end

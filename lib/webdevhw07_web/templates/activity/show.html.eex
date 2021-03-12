@@ -14,30 +14,71 @@
   <%= @activity.body %>
 </div>
 
-<h2>Add Comment</h2>
+<hr/>
 
-<%= if have_current_user?(@conn) do %>
-  <%# <%= render(
-    Webdevhw07.CommentView,
-    "form.html",
-    changeset: @new_comment,
-    action: Routes.comment_path(@conn, :create)
-  ) %>
-  <%= render(
-    Webdevhw07Web.CommentView,
-    "form.html",
-    changeset: @new_comment,
-    action: Routes.comment_path(@conn, :create)
-  )%>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Comments</h2>
 
-<h2>Comments</h2>
+      <hr/>
 
-<%= for comm <- @activity.comments do %>
-  <div class="card">
-    <div class="card-body">
-      <p>Posted by <%= comm.user.name %></p>
-      <p class="card-text"><%= comm.body %></p>
+      <%= if have_current_user?(@conn) do %>
+        <%= render(
+          Webdevhw07Web.CommentView,
+          "form.html",
+          changeset: @new_comment,
+          action: Routes.comment_path(@conn, :create)
+        )%>
+      <% end %>
+
+      <hr/>
+
+      <%= for comm <- @activity.comments do %>
+        <div class="card comment-card">
+          <div class="card-body">
+            <p><%= comm.user.name %></p>
+            <p class="card-text"><%= comm.body %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col">
+      <h2> Invite List </h2>
+
+      <hr/>
+
+        <%= if have_current_user?(@conn) do %>
+          <%= render(
+            Webdevhw07Web.InviteView,
+            "form.html",
+            changeset: @new_invite,
+            action: Routes.invite_path(@conn, :create)
+          )%>
+        <% end %>
+
+      <br/>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Url</th>
+            <th scope="col">Accepted</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <%= for invite <- @activity.invites do %>
+          <tr>
+            <td><%= invite.user_email%></td>
+            <td><%= invite.url%></td>
+            <td><%= invite.accept%></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <%end %>
+      </table
     </div>
   </div>
-<% end %>
+</div>
