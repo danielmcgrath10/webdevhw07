@@ -20,9 +20,13 @@
         </div>
         <div class="card-body">
           <h4>Date: <%= activity.date%></h4>
-          <p>Posted by <%=activity.user.name%></p>
+          <div class="row">
+            <div class="comm-pic-crop">
+             <img class="comm-pic" src="<%= Routes.user_path(@conn, :profile_photo, activity.user_id) %>" alt=""/>
+            </div>
+            <p class="comm-name"><%= activity.user.name %></p>
+          </div>
           <p>Comments: <%= Enum.count(activity.comments) %>
-          <p class="card-text"><%= activity.body %></p>
         </div>
       </div>
     <% end %>

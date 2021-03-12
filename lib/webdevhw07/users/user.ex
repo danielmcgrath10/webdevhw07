@@ -5,7 +5,7 @@ defmodule Webdevhw07.Users.User do
   schema "users" do
     field :email, :string, null: false
     field :name, :string, null: false
-    field :profile_photo, :string
+    field :profile_photo, :string, default: Webdevhw07.Inject.photo("user.png")
 
     has_many :posts, Webdevhw07.Activities.Activity
     has_many :comments, Webdevhw07.Comments.Comment

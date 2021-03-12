@@ -23,17 +23,29 @@ defmodule Webdevhw07Web.UserController do
       |> redirect(to: Routes.user_path(conn, :index))
     end
     up = user_params["profile_photo"]
-    {:ok, hash} = Photos.save_photo(up.filename, up.path)
-    user_params = user_params
-    |> Map.put("profile_photo", hash)
-    case Users.create_user(user_params) do
-      {:ok, user} ->
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+    if up do
+      {:ok, hash} = Photos.save_photo(up.filename, up.path)
+      user_params = user_params
+      |> Map.put("profile_photo", hash)
+      case Users.create_user(user_params) do
+        {:ok, user} ->
+          conn
+          |> put_flash(:info, "User created successfully.")
+          |> redirect(to: Routes.user_path(conn, :show, user))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
+    else
+      case Users.create_user(user_params) do
+        {:ok, user} ->
+          conn
+          |> put_flash(:info, "User created successfully.")
+          |> redirect(to: Routes.user_path(conn, :show, user))
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
     end
   end
 

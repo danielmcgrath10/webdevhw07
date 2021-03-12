@@ -1,5 +1,5 @@
 
-Web Dev Spring 2021 HW07 Status
+Web Dev Spring 2021 HW08 Status
 
 Answer the following questions:
 
@@ -18,16 +18,13 @@ events.danny-mcgrath.com
 
 4. Is your app functionality complete? If not, what's missing?
 
-Yes, it should have everything
+
 
 5. Is your app properly deployed? If not, what went wrong?
 
-Yes, it is working
 
-6. If you would like the deployment for an old homework to be reconsidered, what
-are the links to your Inkfish submission and deployed site?
 
-I don't think so
+
 
 And here's a list of tasks for grading comments. Just leave this here:
  - Development

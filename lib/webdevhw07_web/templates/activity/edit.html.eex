@@ -1,4 +1,4 @@
-<%= if in_invites?(@conn, @activity.invites) do %>
+<%= if current_user_id?(@conn, @activity.user_id) || in_invites?(@conn, @activity.invites) do %>
 
     <h1>Edit Activity</h1>
 

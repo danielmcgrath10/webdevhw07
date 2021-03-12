@@ -35,7 +35,10 @@ defmodule Webdevhw07.Invites do
       ** (Ecto.NoResultsError)
 
   """
-  def get_invite!(id), do: Repo.get!(Invite, id)
+  def get_invite!(id) do
+    Repo.get!(Invite, id)
+    |> Repo.preload(:activity)
+  end
 
   @doc """
   Creates a invite.

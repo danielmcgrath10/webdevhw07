@@ -40,6 +40,7 @@ defmodule Webdevhw07.Activities do
   """
   def get_activity!(id), do: Repo.get!(Activity, id)
   |>Repo.preload(:invites)
+  |>Repo.preload(:user)
 
   @doc """
   Creates a activity.

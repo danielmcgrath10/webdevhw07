@@ -17,9 +17,9 @@
     <%= error_tag f, :email %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :profile_photo %>
-    <%= file_input f, :profile_photo, class: "form-control" %>
+  <div class="form-group input-group mb-3">
+    <%= label f, :profile_photo, class: "input-group-text", for: "input-file" %>
+    <%= file_input f, :profile_photo, class: "form-control", id: "input-file", type: "file" %>
     <%= error_tag f, :profile_photo %>
   </div>
 

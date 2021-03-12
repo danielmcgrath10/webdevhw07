@@ -21,6 +21,7 @@ defmodule Webdevhw07Web.InviteController do
   def create(conn, %{"invite" => invite_params}) do
     invite_params = invite_params
     |> Map.put("user_id", current_user_id(conn))
+    |> Map.replace!("url", "http://events.danny-mcgrath.com/activities/#{invite_params["activity_id"]}")
     case Invites.create_invite(invite_params) do
       {:ok, invite} ->
         conn

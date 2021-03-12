@@ -1,23 +1,39 @@
-<h1>Show Invite</h1>
+<%= if current_user_id?(@conn, @invite.user_id) do %>
+  <h1>Show Invite</h1>
 
-<ul>
+  <ul>
 
-  <li>
-    <strong>User email:</strong>
-    <%= @invite.user_email %>
-  </li>
+    <li>
+      <strong>User email:</strong>
+      <%= @invite.user_email %>
+    </li>
 
-  <li>
-    <strong>Url:</strong>
-    <%= @invite.url %>
-  </li>
+    <li>
+      <strong>Url:</strong>
+      <%= @invite.url %>
+    </li>
 
-  <li>
-    <strong>Accept:</strong>
-    <%= @invite.accept %>
-  </li>
+    <li>
+      <strong>Accept:</strong>
+      <%= @invite.accept %>
+    </li>
 
-</ul>
+    <li>
+      <strong>Event:</strong>
+      <%= @invite.activity.name %>
+    </li>
 
-<span><%= link "Edit", to: Routes.invite_path(@conn, :edit, @invite) %></span>
-<span><%= link "Back", to: Routes.invite_path(@conn, :index) %></span>
+  </ul>
+
+  <span><%= link "Edit", to: Routes.invite_path(@conn, :edit, @invite) %></span>
+  <span><%= link "Back", to: Routes.invite_path(@conn, :index) %></span>
+
+<%else %>
+ <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="align-text-center">You don't have access to this</h1>
+      </div>
+    </div>
+  </div>
+<%end %>

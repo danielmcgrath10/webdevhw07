@@ -23,8 +23,10 @@
       <td><%= activity.date %></td>
       <td><%= activity.body %></td>
 
-      <%= if in_invites?(@conn, activity.invites) do %>
+      <%= if current_user_id?(@conn, activity.user_id) || in_invites?(@conn, activity.invites) do %>
         <td><span><%= link "Show", to: Routes.activity_path(@conn, :show, activity) %></span></td>
+      <%else %>
+        <td></td>
       <%end %>
       <%= if current_user_id?(@conn, activity.user_id) do%>
         <td><span><%= link "Edit", to: Routes.activity_path(@conn, :edit, activity) %></span></td>

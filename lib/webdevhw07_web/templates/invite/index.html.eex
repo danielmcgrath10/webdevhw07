@@ -1,30 +1,38 @@
 <h1>Listing Invites</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User email</th>
-      <th>Url</th>
-      <th>Accept</th>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User email</th>
+        <th>Url</th>
+        <th>Accept</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for invite <- @invites do %>
-    <tr>
-      <td><%= invite.user_email %></td>
-      <td><%= invite.url %></td>
-      <td><%= invite.accept %></td>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for invite <- @invites do %>
+      <tr>
+        <td><%= invite.user_email %></td>
+        <td><%= invite.url %></td>
+        <td><%= invite.accept %></td>
 
-      <td>
-        <span><%= link "Show", to: Routes.invite_path(@conn, :show, invite) %></span>
-        <span><%= link "Edit", to: Routes.invite_path(@conn, :edit, invite) %></span>
-        <span><%= link "Delete", to: Routes.invite_path(@conn, :delete, invite), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+        <%= if current_user_id?(@conn, invite.user_id) do%>
+          <td><span><%= link "Show", to: Routes.invite_path(@conn, :show, invite) %></span></td>
+          <td><span><%= link "Edit", to: Routes.invite_path(@conn, :edit, invite) %></span></td>
+          <td><span><%= link "Delete", to: Routes.invite_path(@conn, :delete, invite), method: :delete, data: [confirm: "Are you sure?"] %></span></td>
+        <% else%>
+          <td></td>
+          <td></td>
+          <td></td>
+        <% end%>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
 
 <span><%= link "New Invite", to: Routes.invite_path(@conn, :new) %></span>
