@@ -3,6 +3,7 @@ defmodule Webdevhw07Web.InviteController do
 
   alias Webdevhw07.Invites
   alias Webdevhw07.Invites.Invite
+  alias Webdevhw07.Activities
 
   def index(conn, _params) do
     invites = Invites.list_invites()
@@ -22,7 +23,7 @@ defmodule Webdevhw07Web.InviteController do
       {:ok, invite} ->
         conn
         |> put_flash(:info, "Invite created successfully.")
-        |> redirect(to: Routes.invite_path(conn, :show, invite))
+        |> redirect(to: Routes.activity_path(conn, :show, invite.activity_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -48,6 +49,31 @@ defmodule Webdevhw07Web.InviteController do
         conn
         |> put_flash(:info, "Invite updated successfully.")
         |> redirect(to: Routes.invite_path(conn, :show, invite))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", invite: invite, changeset: changeset)
+    end
+  end
+
+  def update_accept(conn, %{"activity_id" => id, "accept" => accept}) do
+    user = conn.assigns[:current_user]
+    invite = Activities.get_activity!(id).invites
+    |> Enum.find(fn invite -> invite.user_email == user.email end)
+    |> Map.replace!(:accept, accept)
+
+    invite_params = %{
+      accept: invite.accept,
+      url: invite.url,
+      user_email: invite.user_email,
+      activity_id: invite.activity_id,
+      user_id: invite.user_id
+    }
+
+    case Invites.update_invite(invite, invite_params) do
+      {:ok, invite} ->
+        conn
+        |> put_flash(:info, "Invite updated successfully.")
+        |> redirect(to: Routes.activity_path(conn, :show, invite.activity_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", invite: invite, changeset: changeset)

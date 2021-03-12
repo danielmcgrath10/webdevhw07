@@ -18,4 +18,16 @@ defmodule Webdevhw07Web.Helpers do
         activity = conn.assigns[:activity]
         user && activity.user_id
     end
+
+    def in_invites?(conn, invites) do
+        user = conn.assigns[:current_user]
+        match = Enum.find(invites, fn invite ->
+            invite.user_email == user.email
+        end)
+        if match do
+            true
+        else
+            false
+        end
+    end
 end

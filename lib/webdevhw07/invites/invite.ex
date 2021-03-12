@@ -4,7 +4,7 @@ defmodule Webdevhw07.Invites.Invite do
 
   schema "invites" do
     field :accept, :boolean, default: false
-    field :url, :string
+    field :url, :string, default: "https://helloworld.com"
     field :user_email, :string, null: false
     belongs_to :activity, Webdevhw07.Activities.Activity
     belongs_to :user, Webdevhw07.Users.User

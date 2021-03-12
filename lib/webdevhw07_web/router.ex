@@ -19,6 +19,7 @@ defmodule Webdevhw07Web.Router do
 
     get "/", PageController, :index
     get "/users/profile_photo/:id", UserController, :profile_photo
+    post "/invites/update_accept/:activity_id/:accept", InviteController, :update_accept
     resources "/users", UserController
     resources "/activities", ActivityController
     resources "/comments", CommentController

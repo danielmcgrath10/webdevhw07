@@ -57,15 +57,19 @@
       <h2> Invite List </h2>
 
       <hr/>
-
-        <%= if have_current_user?(@conn) do %>
-          <%= render(
-            Webdevhw07Web.InviteView,
-            "form.html",
-            changeset: @new_invite,
-            action: Routes.invite_path(@conn, :create)
-          )%>
-        <% end %>
+      <%= if current_user_id?(@conn, @activity.user_id) do %>
+        <%= render(
+          Webdevhw07Web.InviteView,
+          "form.html",
+          changeset: @new_invite,
+          action: Routes.invite_path(@conn, :create)
+        )%>
+      <%else %>
+        <%= if in_invites?(@conn, @activity.invites) do%>
+            <span><%= link "Accept", to: Routes.invite_path(@conn, :update_accept, @activity.id, true), method: :post %></span>
+            <span><%= link "Reject", to: Routes.invite_path(@conn, :update_accept, @activity.id, false), method: :post %></span>
+        <%end %>
+      <%end %>
 
       <br/>
 
