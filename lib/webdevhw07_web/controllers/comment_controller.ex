@@ -21,7 +21,7 @@ defmodule Webdevhw07Web.CommentController do
       {:ok, comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")
-        |> redirect(to: Routes.comment_path(conn, :show, comment))
+        |> redirect(to: Routes.activity_path(conn, :show, comment.activity_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -54,11 +54,13 @@ defmodule Webdevhw07Web.CommentController do
   end
 
   def delete(conn, %{"id" => id}) do
+    IO.inspect id
     comment = Comments.get_comment!(id)
+    activity_id = comment.activity_id
     {:ok, _comment} = Comments.delete_comment(comment)
 
     conn
     |> put_flash(:info, "Comment deleted successfully.")
-    |> redirect(to: Routes.comment_path(conn, :index))
+    |> redirect(to: Routes.activity_path(conn, :show, activity_id))
   end
 end

@@ -44,3 +44,48 @@
     width: 100%;
     height: auto;
   }
+
+  .comm-pic-crop{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .comm-pic{
+    height: auto;
+    width: 100%;
+  }
+
+  .profile-image-crop{
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .user-profile-photo{
+    height: auto;
+    width: 100%;
+    margin: auto;
+  }
+
+  .comment-row{
+    justify-content: space-between;
+  }
+
+  .inner-row{
+    margin-left: 10px;
+  }
+
+  .del-comm {
+    text-decoration: none;
+    color: grey;
+  }
+
+  .del-comm:hover {
+    text-decoration: none;
+    color: grey;
+  }

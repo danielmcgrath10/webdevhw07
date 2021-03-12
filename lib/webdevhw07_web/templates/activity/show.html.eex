@@ -37,7 +37,17 @@
       <%= for comm <- @activity.comments do %>
         <div class="card comment-card">
           <div class="card-body">
-            <p><%= comm.user.name %></p>
+            <div class="row comment-row">
+              <div class="row inner-row">
+                <div class="comm-pic-crop">
+                  <img class="comm-pic" src="<%= Routes.user_path(@conn, :profile_photo, comm.user) %>" alt=""/>
+                </div>
+                <p class="comm-name"><%= comm.user.name %></p>
+              </div>
+              <%= if current_user_id?(@conn, comm.user_id) || current_user_id?(@conn, @activity.user_id) do %>
+                <span><%= link "x", to: Routes.comment_path(@conn, :delete, comm.id), method: :delete, data: [confirm: "Are you sure?"], class: "del-comm" %></span>
+              <%end %>
+            </div>
             <p class="card-text"><%= comm.body %></p>
           </div>
         </div>

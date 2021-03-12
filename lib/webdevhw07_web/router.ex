@@ -18,6 +18,7 @@ defmodule Webdevhw07Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/users/profile_photo/:id", UserController, :profile_photo
     resources "/users", UserController
     resources "/activities", ActivityController
     resources "/comments", CommentController
