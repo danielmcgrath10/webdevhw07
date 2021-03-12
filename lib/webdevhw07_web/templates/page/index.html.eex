@@ -1,25 +1,35 @@
-<div class="row">
-  <div class="col">
-    <h1>Activity Feed</h1>
-    <%= if have_current_user?(@conn) do%>
-      <%= link "New Activity", to: Routes.activity_path(@conn, :new), class: "btn btn-primary" %>
-    <% end%>
+<%= if have_current_user?(@conn) do%>
+  <div class="row">
+    <div class="col">
+      <h1>Activity Feed</h1>
+      <%= if have_current_user?(@conn) do%>
+        <%= link "New Activity", to: Routes.activity_path(@conn, :new), class: "btn btn-primary" %>
+      <% end%>
+    </div>
   </div>
-</div>
 
-<div class="row px-4">
-  <%= for activity <- @activities do%>
-    <div class="card">
-      <div class="card-header">
-        <h3><%= activity.name%></h3>
+  <div class="row px-4">
+    <%= for activity <- @activities do%>
+      <div class="card">
+        <div class="card-header">
+          <h3><%= activity.name%></h3>
+        </div>
+        <div class="card-body">
+          <h4>Date: <%= activity.date%></h4>
+          <p>Posted by <%=activity.user.name%></p>
+          <p>Comments: <%= Enum.count(activity.comments) %>
+          <p class="card-text"><%= activity.body %></p>
+          <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>
+        </div>
       </div>
-      <div class="card-body">
-        <h4>Date: <%= activity.date%></h4>
-        <p>Posted by <%=activity.user.name%></p>
-        <p>Comments: <%= Enum.count(activity.comments) %>
-        <p class="card-text"><%= activity.body %></p>
-        <%= link "view", to: Routes.activity_path(@conn, :show, activity) %>
+    <% end %>
+  </div>
+<%else %>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="align-text-center">Please Log In to Continue</h1>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<%end %>
